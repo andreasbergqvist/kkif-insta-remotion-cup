@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { AbsoluteFill, useCurrentFrame, spring, interpolate } from "remotion";
 
 export interface MatchesScreenProps {
-    matches: { time: string; opponent: string, showVs: boolean }[];
+    matches: { time: string; opponent: string, showVs: boolean, color: string }[];
 }
 
 export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({ matches }) => {
@@ -35,13 +35,11 @@ export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({ matches }
                                 {m.time}
                             </div>
                             <div
-                                className="text-left flex-4"
+                                className="text-left flex-5"
                                 style={{
                                     opacity: vsOpacity,
                                     transform: `scale(${opponentScale})`,
-                                    textShadow: i % 2 === 0
-                                        ? '0 0 16px #005FA9, 0 2px 8px #005FA9, 0 0 2px #005FA9'
-                                        : '0 0 16px #FFD200, 0 2px 8px #FFD200, 0 0 2px #FFD200',
+                                    textShadow: `0 0 16px ${m.color}, 0 2px 8px ${m.color}, 0 0 2px ${m.color}`
                                 }}
                             >
                                 {m.showVs && 'vs'} {m.opponent}
