@@ -16,7 +16,7 @@ const videoData = {
     { time: "12.30", opponent: "Onsala BK", showVs: true, color: '#0067B0' },
     { time: "14.30", opponent: "SG Ruddalen", showVs: true, color: '#BF1E2E' },
     { time: "15.30", opponent: "Hovås Billdal", showVs: true, color: '#2F3F7D' },
-    { time: "12.45", opponent: "Varbergs BoIS", showVs: false, color: '#289548' },
+    { time: "16.30", opponent: "Varbergs BoIS", showVs: true, color: '#289548' },
   ],
   squad: [
     "Ariana Mati",
