@@ -1,6 +1,8 @@
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame, spring, interpolate } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, spring } from 'remotion';
 import { PlayerName } from '../components/PlayerName';
+import { BackgroundTexture } from '../components/BackgroundTexture';
+import { BackgroundText } from '../components/BackgroundText';
 
 interface TeamRosterScreenProps {
   teamName: string;
@@ -37,56 +39,52 @@ export const TeamRosterScreen: React.FC<TeamRosterScreenProps> = ({
   const textColor = 'text-white';
   const bgOpacity = '1';
 
+  // Enhanced animations - simplified
+  const gradientRotation = frame / 6;
+
   return (
-    <AbsoluteFill className="flex flex-col items-center p-16">
-      {/* Dynamic background with team color */}
+    <AbsoluteFill className="overflow-hidden">
+      <BackgroundTexture />
+
+      {/* Enhanced dynamic background with team color */}
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(135deg, ${teamColor}, ${teamColor}dd)`,
+          background: `linear-gradient(${135 + gradientRotation}deg, 
+            ${teamColor}ee 0%, 
+            rgba(0,0,0,0.9) 40%, 
+            rgba(0,0,0,0.9) 60%, 
+            ${teamColor}ee 100%)`,
           opacity: bgOpacity,
         }}
       />
 
-      {/* Metallic texture overlay */}
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `
-            repeating-linear-gradient(
-              -45deg,
-              #000 0px,
-              #000 1px,
-              transparent 1px,
-              transparent 4px
-            )
-          `,
-          backgroundSize: '8px 8px',
-        }}
-      />
+      <BackgroundText />
 
-      {/* Team name header */}
-      <div
-        className={`relative ${textColor} font-teko font-bold text-8xl mb-2 tracking-wider`}
-        style={{
-          opacity: titleOpacity,
-          transform: `scale(${titleScale})`,
-          textShadow: '2px 2px 0 rgba(0,0,0,0.5)',
-        }}
-      >
-        {teamName}
-      </div>
+      <div className="relative z-10 flex flex-col items-center p-16 h-full justify-center">
+        {/* Enhanced team name header */}
+        <div
+          className={`relative ${textColor} font-teko font-bold text-8xl mb-2 tracking-wider`}
+          style={{
+            opacity: titleOpacity,
+            transform: `scale(${titleScale})`,
+            textShadow: `2px 2px 0 rgba(0,0,0,0.5), 0 0 15px ${teamColor}80`
+          }}
+        >
+          {teamName}
+        </div>
 
-      {/* Player list */}
-      <div className="relative flex flex-col items-center justify-center w-full mt-8 space-y-4">
-        {players.map((player, index) => (
-          <PlayerName
-            key={index}
-            name={player}
-            startFrame={PLAYER_START + index * PLAYER_STAGGER}
-            index={index}
-          />
-        ))}
+        {/* Enhanced player list */}
+        <div className="relative flex flex-col items-center justify-center w-full mt-8 space-y-4">
+          {players.map((player, index) => (
+            <PlayerName
+              key={index}
+              name={player}
+              startFrame={PLAYER_START + index * PLAYER_STAGGER}
+              index={index}
+            />
+          ))}
+        </div>
       </div>
     </AbsoluteFill>
   );
