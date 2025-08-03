@@ -8,27 +8,28 @@ import { SquadScreen } from "../screens/SquadScreen";
 
 // All changeable data for the video
 const videoData = {
-  eventName: "Lerkilscupen",
-  date: "Lördag 14/6",
-  field: "Ängås IP",
+  eventName: "Göteborg Beachfestival",
+  date: "Måndag 4/8",
+  field: "Göteborg Beach Arena",
   logoUrl: "https://www.karrakif.se/im/hemsidaLogga/2056/60268/_genLogga.png",
   matches: [
-    { time: "12.30", opponent: "Onsala BK", showVs: true, color: '#0067B0' },
-    { time: "14.30", opponent: "SG Ruddalen", showVs: true, color: '#BF1E2E' },
-    { time: "15.30", opponent: "Hovås Billdal", showVs: true, color: '#2F3F7D' },
-    { time: "16.30", opponent: "Varbergs BoIS", showVs: true, color: '#289548' },
+    { time: "15.40", opponent: "Jitex BK", showVs: true, color: '#652D87' },
+    { time: "16.40", opponent: "Kode IF", showVs: true, color: '#F9D409' },
+    { time: "17.40", opponent: "Torslanda IK", showVs: true, color: '#E23D27' },
+    { time: "18.40", opponent: "Jitex BK", showVs: true, color: '#652D87' },
+    { time: "20.00", opponent: "Kode IF", showVs: true, color: '#F9D409' },
   ],
   squad: [
     "Ariana Mati",
-    "Astrid Bergsten",
+    "Bao An Nguyen",
+    "Cornelia Björklund",
     "Cornelia Dahlqvist",
+    "Disa Bäckman",
     "Emma Bohman",
-    "Emma Yuan",
     "Ester Fahlström",
-    "Iris Bergqvist",
-    "Lena Simovic",
-    "Tuva Reitz",
-    "Vanessa Diniute",
+    "Evelina Borne",
+    "Hanna Norrisson",
+    "Iris Bergqvist"
   ],
   sponsors: ["Rekomo", "Sendify", "Itiden", "PG Bygg"],
 };
