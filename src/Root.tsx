@@ -1,6 +1,10 @@
 import "./index.css";
 import { Composition } from "remotion";
-import { MainVideo, data, calculateDuration } from "./remotion/compositions/MainVideo";
+import {
+  MainVideo,
+  data,
+  calculateDuration,
+} from "./remotion/compositions/MainVideo";
 
 export const RemotionRoot: React.FC = () => {
   return (
