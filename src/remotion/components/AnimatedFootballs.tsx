@@ -15,8 +15,8 @@ const SoccerBall: React.FC<{
   // Calculate position - centered with some spread, or full screen
   const centerX = 540; // Half of 1080
   const centerY = 960; // Half of 1920
-  const spreadX = centered ? 400 : 1080;
-  const spreadY = centered ? 600 : 1920;
+  const spreadX = centered ? 800 : 1080;
+  const spreadY = centered ? 1200 : 1920;
 
   const x = centered
     ? centerX +

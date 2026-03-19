@@ -54,7 +54,7 @@ export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
         >
           Matcher
         </div>
-        <div className="flex flex-col items-center text-white font-teko text-8xl w-full">
+        <div className="flex flex-col items-center text-white font-teko text-7xl gap-4 w-full">
           {matches.map((m, i) => {
             const baseFrame = frame - 10 - i * ROW_STAGGER;
             const timeOpacity = spring({
