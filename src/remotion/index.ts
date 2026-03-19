@@ -1,4 +1,4 @@
-import { MainVideo, data } from "./compositions/MainVideo";
+import { MainVideo, data, calculateDuration } from "./compositions/MainVideo";
 
-export { MainVideo };
+export { MainVideo, calculateDuration };
 export const defaultProps = data;
