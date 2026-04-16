@@ -8,30 +8,55 @@ import { SquadScreen } from "../screens/SquadScreen";
 
 // All changeable data for the video
 export const data = {
-  eventName: "Vårcupen",
-  date: "Söndag 22/3",
-  field: "Torslandavallen",
+  eventName: "Honors Cup",
+  date: "Lörd-sönd 18-19/4",
+  field: "Åbyvallen",
   logoUrl: "https://www.karrakif.se/im/hemsidaLogga/2056/60268/_genLogga.png",
   matches: [
-    { time: "14.30", opponent: "Jitex BK", showVs: true, color: "#652D87" },
-    { time: "15.30", opponent: "Mölnlycke IF", showVs: true, color: "#F5D330" },
-    { time: "16.30", opponent: "IK Zenith", showVs: true, color: "#00904A" },
-    { time: "17.30", opponent: "Azalea BK", showVs: true, color: "#FD5300" },
+    {
+      time: "Lörd 10.00",
+      opponent: "FC Rosengård",
+      showVs: true,
+      color: "#1E1B58",
+    },
+    {
+      time: "Lörd 13.30",
+      opponent: "Mölnlycke IF",
+      showVs: true,
+      color: "#F5D330",
+    },
+    {
+      time: "Lörd 16.30",
+      opponent: "Azalea BK",
+      showVs: true,
+      color: "#FD5300",
+    },
+    {
+      time: "Sönd 11.00",
+      opponent: "Dalsjöfors GoIF",
+      showVs: true,
+      color: "#00A75D",
+    },
+    {
+      time: "Sönd 13.00",
+      opponent: "IF Väster",
+      showVs: true,
+      color: "#FD5300",
+    },
   ],
   squad: [
-    "Astrid Bergsten",
-    "Bao An Nguyen",
+    "Ariana Mati",
+    "Cornelia Björklund",
     "Cornelia Dahlqvist",
+    "Disa Bäckman",
     "Emma Bohman",
-    "Emma Flygare",
-    "Emma Yuan",
     "Ester Fahlström",
     "Evelina Borne",
+    "Hanna Norrisson",
     "Iris Bergqvist",
-    "Lilia Miqdad",
-    "Vansessa Dinuite",
+    "Tuva Reitz",
   ],
-  sponsors: null as string[] | null,
+  sponsors: ["Wattnord", "Itiden", "PG Bygg"],
 };
 
 // Duration constants
