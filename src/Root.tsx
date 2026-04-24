@@ -1,6 +1,6 @@
 import "./index.css";
 import { Composition } from "remotion";
-import { MainVideo, data } from "./remotion/compositions/MainVideo";
+import { MainVideo, VIDEO_DURATION, data } from "./remotion/compositions/MainVideo";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="MyComp"
         component={MainVideo}
-        durationInFrames={20 * 30}
+        durationInFrames={VIDEO_DURATION}
         fps={30}
         width={1080}
         height={1350}
