@@ -5,10 +5,12 @@ import { BackgroundText } from "../components/BackgroundText";
 
 export interface MatchesScreenProps {
   matches: { time: string; opponent: string; showVs: boolean; color: string }[];
+  teamName?: string;
 }
 
 export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
   matches,
+  teamName,
 }) => {
   const frame = useCurrentFrame();
   const titleOpacity = spring({
@@ -44,7 +46,7 @@ export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-700 via-yellow-400 to-blue-700 opacity-70" />
         <div
-          className="text-white font-teko font-bold text-9xl mb-12 tracking-wider text-center drop-shadow-lg"
+          className="text-white font-teko font-bold text-8xl mb-12 tracking-wider text-center drop-shadow-lg"
           style={{
             opacity: titleOpacity,
             transform: `translateY(${titleY}px)`,
@@ -52,7 +54,7 @@ export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
               "0 0 10px rgba(251, 191, 36, 0.4), 0 2px 8px rgba(0,0,0,0.8)",
           }}
         >
-          Matcher
+          {teamName ? `Matcher - ${teamName}` : "Matcher"}
         </div>
         <div className="flex flex-col items-center text-white font-teko text-7xl gap-4 w-full">
           {matches.map((m, i) => {

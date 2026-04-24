@@ -12,7 +12,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="MyComp"
         component={MainVideo}
-        durationInFrames={calculateDuration(data.sponsors)}
+        durationInFrames={calculateDuration(data)}
         fps={30}
         width={1080}
         height={1920}
