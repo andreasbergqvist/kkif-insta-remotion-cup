@@ -9,12 +9,14 @@ import {
 import { AnimatedFootballs } from "../components/AnimatedFootballs";
 import { BackgroundTexture } from "../components/BackgroundTexture";
 import { EnhancedParticleEffects } from "../components/EnhancedParticleEffects";
+import { SurfaceTheme } from "../components/BackgroundTexture";
 
 export interface IntroScreenProps {
   eventName: string;
   date: string;
   logoUrl?: string;
   field?: string;
+  surface?: SurfaceTheme;
 }
 
 export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
@@ -22,6 +24,7 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
   date,
   logoUrl,
   field,
+  surface,
 }) => {
   const frame = useCurrentFrame();
   const logoScale = spring({
@@ -78,29 +81,70 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
 
   // Enhanced gradient animation
   const gradientOffset = frame / 3;
+  const pitchColors =
+    surface === "sand"
+      ? {
+          glow: "rgba(235, 190, 118, 0.68)",
+          mid: "rgba(183, 135, 75, 0.72)",
+          deep: "rgba(74, 45, 28, 0.92)",
+          line: "rgba(255, 238, 194, 0.28)",
+        }
+      : {
+          glow: "rgba(101, 197, 108, 0.72)",
+          mid: "rgba(31, 123, 72, 0.72)",
+          deep: "rgba(3, 32, 27, 0.96)",
+          line: "rgba(203, 255, 206, 0.24)",
+        };
 
   return (
     <AbsoluteFill className="overflow-hidden">
-      <BackgroundTexture />
+      <BackgroundTexture surface={surface} />
+
+      {/* Abstract floodlit pitch */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          zIndex: 1,
+          inset: 0,
+          opacity: 0.88,
+          background: `radial-gradient(ellipse at ${50 + Math.sin(frame / 70) * 18}% ${38 + Math.cos(frame / 80) * 12}%, ${pitchColors.glow}, transparent 42%), linear-gradient(${110 + frame / 12}deg, ${pitchColors.deep}, ${pitchColors.mid} 46%, rgba(3, 20, 24, 0.96))`,
+          boxShadow: "inset 0 0 170px rgba(1, 20, 16, 0.72), 0 0 80px rgba(71, 178, 95, 0.18)",
+        }}
+      >
+        <div
+          className="absolute left-[-10%] right-[-10%] top-1/2 border-t-2 border-white/25"
+          style={{ transform: `translateY(${Math.sin(frame / 50) * 3}px)` }}
+        />
+        <div
+          className="absolute inset-0 opacity-12"
+          style={{
+            backgroundImage: `repeating-linear-gradient(90deg, transparent 0, transparent 118px, ${pitchColors.line} 120px, transparent 122px)`,
+          }}
+        />
+      </div>
 
       {/* Animated gradient overlay */}
       <div
         className="absolute inset-0 opacity-60"
         style={{
           background: `linear-gradient(${45 + gradientOffset}deg, 
-                        rgba(30, 58, 138, 0.8) 0%, 
-                        rgba(0, 0, 0, 0.9) 30%, 
-                        rgba(0, 0, 0, 0.95) 70%, 
-                        rgba(251, 191, 36, 0.8) 100%)`,
+                        rgba(21, 87, 75, 0.48) 0%, 
+                        rgba(2, 18, 25, 0.72) 35%, 
+                        rgba(3, 16, 20, 0.78) 70%, 
+                        rgba(117, 91, 22, 0.46) 100%)`,
         }}
       />
 
       {/* Soccer balls positioned discretely in background */}
       <div className="absolute inset-0" style={{ zIndex: 2 }}>
-        <AnimatedFootballs count={15} size={80} centered />
+        <AnimatedFootballs count={8} size={64} centered />
       </div>
 
-      <EnhancedParticleEffects count={30} opacity={0.4} />
+      <EnhancedParticleEffects
+        count={34}
+        opacity={0.42}
+        colors={["#d9ffdf", "#fbbf24", "#60a5fa", "#ffffff"]}
+      />
 
       <div className="relative z-20 flex flex-col items-center justify-center h-full">
         <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-blue-700 via-yellow-400 to-blue-700 opacity-80" />

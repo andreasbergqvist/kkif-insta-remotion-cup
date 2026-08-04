@@ -2,15 +2,20 @@ import { FunctionComponent } from "react";
 import { AbsoluteFill, useCurrentFrame, spring, interpolate } from "remotion";
 import { BackgroundTexture } from "../components/BackgroundTexture";
 import { BackgroundText } from "../components/BackgroundText";
+import { AnimatedFootballs } from "../components/AnimatedFootballs";
+import { EnhancedParticleEffects } from "../components/EnhancedParticleEffects";
+import { SurfaceTheme } from "../components/BackgroundTexture";
 
 export interface MatchesScreenProps {
   matches: { time: string; opponent: string; showVs: boolean; color: string }[];
   teamName?: string;
+  surface?: SurfaceTheme;
 }
 
 export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
   matches,
   teamName,
+  surface,
 }) => {
   const frame = useCurrentFrame();
   const titleOpacity = spring({
@@ -28,20 +33,32 @@ export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
 
   return (
     <AbsoluteFill className="overflow-hidden">
-      <BackgroundTexture />
+      <BackgroundTexture showCenterCircle={false} surface={surface} />
 
       {/* Animated gradient overlay */}
       <div
         className="absolute inset-0 opacity-70"
         style={{
           background: `linear-gradient(${135 + gradientOffset}deg, 
-                        rgba(30, 58, 138, 0.9) 0%, 
-                        rgba(0, 0, 0, 0.95) 50%, 
-                        rgba(251, 191, 36, 0.9) 100%)`,
+                        rgba(25, 93, 150, 0.78) 0%, 
+                        rgba(10, 28, 44, 0.78) 50%, 
+                        rgba(251, 191, 36, 0.72) 100%)`,
         }}
       />
 
       <BackgroundText />
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+        <AnimatedFootballs count={10} size={58} />
+      </div>
+      <EnhancedParticleEffects count={55} opacity={0.75} />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 4,
+          background: `radial-gradient(circle at ${50 + Math.sin(frame / 35) * 18}% ${42 + Math.cos(frame / 45) * 16}%, rgba(255,255,255,0.18), transparent 28%)`,
+          mixBlendMode: "screen",
+        }}
+      />
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-700 via-yellow-400 to-blue-700 opacity-70" />

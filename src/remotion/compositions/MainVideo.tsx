@@ -6,6 +6,7 @@ import { IntroScreen } from "../screens/IntroScreen";
 import { MatchesScreen } from "../screens/MatchesScreen";
 import { SquadScreen } from "../screens/SquadScreen";
 import { TeamColors } from "../theme/colors";
+import { SurfaceTheme } from "../components/BackgroundTexture";
 
 export interface MatchData {
   time: string;
@@ -26,6 +27,7 @@ export interface MainVideoData {
   date: string;
   field: string;
   logoUrl: string;
+  surface: SurfaceTheme;
   teams: TeamData[];
   squad?: string[] | null;
   sponsors: string[];
@@ -37,6 +39,7 @@ export const data: MainVideoData = {
   date: "Fredag",
   field: "Göteborg Beach Arena",
   logoUrl: "https://www.karrakif.se/im/hemsidaLogga/2056/60268/_genLogga.png",
+  surface: "sand",
   squad: [
     "Ariana Mati",
     "Cornelia Björklund",
@@ -175,6 +178,7 @@ export const MainVideo: FunctionComponent = () => {
           date={data.date}
           logoUrl={data.logoUrl}
           field={data.field}
+          surface={data.surface}
         />
       </Sequence>
 
@@ -197,7 +201,11 @@ export const MainVideo: FunctionComponent = () => {
           >
             {/* 2. Matches screen (per team) */}
             <Sequence durationInFrames={SCREEN_DURATION * 1.5}>
-              <MatchesScreen matches={team.matches} teamName={team.name} />
+              <MatchesScreen
+                matches={team.matches}
+                teamName={team.name}
+                surface={data.surface}
+              />
             </Sequence>
             {/* 3. Squad screen (per team, optional) */}
             {team.squad != null && (
@@ -209,6 +217,7 @@ export const MainVideo: FunctionComponent = () => {
                   squad={team.squad}
                   teamName={team.name}
                   teamColor={team.color}
+                  surface={data.surface}
                 />
               </Sequence>
             )}
@@ -219,14 +228,14 @@ export const MainVideo: FunctionComponent = () => {
       {/* 4. Squad screen (whole cup, optional) */}
       {data.squad != null && (
         <Sequence durationInFrames={SQUAD_SCREEN_DURATION} from={squadStart}>
-          <SquadScreen squad={data.squad} />
+          <SquadScreen squad={data.squad} surface={data.surface} />
         </Sequence>
       )}
 
       {/* 5. Sponsors screen (optional) */}
       {data.sponsors && data.sponsors.length > 0 && (
         <Sequence durationInFrames={SCREEN_DURATION} from={sponsorsStart}>
-          <SponsorsScreen sponsors={data.sponsors} />
+          <SponsorsScreen sponsors={data.sponsors} surface={data.surface} />
         </Sequence>
       )}
     </AbsoluteFill>

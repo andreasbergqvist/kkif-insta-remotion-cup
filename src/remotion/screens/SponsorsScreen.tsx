@@ -2,12 +2,14 @@ import React from 'react';
 import { AbsoluteFill, useCurrentFrame, spring, interpolate } from 'remotion';
 import { BackgroundTexture } from '../components/BackgroundTexture';
 import { BackgroundText } from '../components/BackgroundText';
+import { SurfaceTheme } from '../components/BackgroundTexture';
 
 interface SponsorsScreenProps {
     sponsors: string[];
+    surface?: SurfaceTheme;
 }
 
-export const SponsorsScreen: React.FC<SponsorsScreenProps> = ({ sponsors }) => {
+export const SponsorsScreen: React.FC<SponsorsScreenProps> = ({ sponsors, surface }) => {
     const frame = useCurrentFrame();
 
     const TITLE_START = 10;
@@ -64,7 +66,7 @@ export const SponsorsScreen: React.FC<SponsorsScreenProps> = ({ sponsors }) => {
     );
     return (
         <AbsoluteFill className="overflow-hidden">
-            <BackgroundTexture />
+            <BackgroundTexture surface={surface} />
 
             {/* Enhanced animated gradient background */}
             <div

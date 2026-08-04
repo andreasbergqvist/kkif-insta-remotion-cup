@@ -1,8 +1,32 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame } from 'remotion';
 
-export const BackgroundTexture: React.FC = () => {
+export type SurfaceTheme = "sand" | "grass";
+
+interface BackgroundTextureProps {
+  showCenterCircle?: boolean;
+  surface?: SurfaceTheme;
+}
+
+export const BackgroundTexture: React.FC<BackgroundTextureProps> = ({
+  showCenterCircle = true,
+  surface = "grass",
+}) => {
   const frame = useCurrentFrame();
+  const surfaceColors =
+    surface === "sand"
+      ? {
+          base: "#b8874b",
+          light: "rgba(235, 190, 118, 0.75)",
+          dark: "rgba(105, 65, 35, 0.9)",
+          line: "rgba(255, 238, 194, 0.5)",
+        }
+      : {
+          base: "#1f7b48",
+          light: "rgba(101, 197, 108, 0.72)",
+          dark: "rgba(3, 32, 27, 0.92)",
+          line: "rgba(203, 255, 206, 0.35)",
+        };
 
   // Enhanced movement of the background
   const yOffset = Math.sin(frame / 100) * 8 + Math.cos(frame / 150) * 5;
@@ -12,30 +36,31 @@ export const BackgroundTexture: React.FC = () => {
 
   return (
     <AbsoluteFill className="overflow-hidden">
-      {/* Enhanced dark gradient background */}
+      {/* Brighter stadium-like base */}
       <AbsoluteFill
-        className="bg-gradient-to-br from-neutral-950 via-neutral-900 to-black"
+        className="bg-gradient-to-br from-slate-900 via-slate-800 to-neutral-950"
         style={{
           transform: `scale(${scale})`,
+          background: `radial-gradient(ellipse at ${50 + Math.sin(frame / 70) * 18}% 38%, ${surfaceColors.light}, transparent 44%), linear-gradient(${115 + frame / 12}deg, ${surfaceColors.dark}, ${surfaceColors.base} 48%, #07151a 100%)`,
         }}
       />
 
       {/* Enhanced animated metallic texture */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `
             repeating-linear-gradient(
               ${45 + rotation}deg,
-              #000 0px,
-              #000 1px,
+              #8ca8bd 0px,
+              #8ca8bd 1px,
               transparent 1px,
               transparent 4px
             ),
             repeating-linear-gradient(
               ${-45 + rotation * 0.5}deg,
-              #1a1a1a 0px,
-              #1a1a1a 1px,
+              #40586a 0px,
+              #40586a 1px,
               transparent 1px,
               transparent 6px
             )
@@ -47,21 +72,21 @@ export const BackgroundTexture: React.FC = () => {
 
       {/* Enhanced soccer/football field lines */}
       <div
-        className="absolute w-[200%] h-[200%] opacity-8"
+        className="absolute w-[200%] h-[200%] opacity-20"
         style={{
           backgroundImage: `
             linear-gradient(to right, 
               transparent, 
               transparent 49px, 
-              rgba(255,255,255,0.4) 49px, 
-              rgba(255,255,255,0.4) 51px, 
+              ${surfaceColors.line} 49px, 
+              ${surfaceColors.line} 51px, 
               transparent 51px
             ),
             linear-gradient(to bottom, 
               transparent, 
               transparent 49px, 
-              rgba(255,255,255,0.4) 49px, 
-              rgba(255,255,255,0.4) 51px, 
+              ${surfaceColors.line} 49px, 
+              ${surfaceColors.line} 51px, 
               transparent 51px
             )
           `,
@@ -71,21 +96,23 @@ export const BackgroundTexture: React.FC = () => {
       />
 
       {/* Enhanced animated center circle */}
-      <div
-        className="absolute rounded-full border-[6px] border-white/8"
-        style={{
-          width: '600px',
-          height: '600px',
-          top: '50%',
-          left: '50%',
-          transform: `
-            translate(-50%, -50%) 
-            scale(${1 + Math.sin(frame / 150) * 0.08}) 
-            rotate(${rotation * 2}deg)
-          `,
-          boxShadow: '0 0 100px rgba(255,255,255,0.15) inset, 0 0 50px rgba(251, 191, 36, 0.1)',
-        }}
-      />
+      {showCenterCircle && (
+        <div
+          className="absolute rounded-full border-[6px] border-cyan-100/20"
+          style={{
+            width: '600px',
+            height: '600px',
+            top: '50%',
+            left: '50%',
+            transform: `
+              translate(-50%, -50%) 
+              scale(${1 + Math.sin(frame / 150) * 0.08}) 
+              rotate(${rotation * 2}deg)
+            `,
+            boxShadow: '0 0 100px rgba(180,230,255,0.2) inset, 0 0 70px rgba(251, 191, 36, 0.18)',
+          }}
+        />
+      )}
 
       {/* Additional floating orbs */}
       <div

@@ -2,17 +2,22 @@ import { FunctionComponent } from "react";
 import { AbsoluteFill, useCurrentFrame, spring, interpolate } from "remotion";
 import { BackgroundTexture } from "../components/BackgroundTexture";
 import { BackgroundText } from "../components/BackgroundText";
+import { AnimatedFootballs } from "../components/AnimatedFootballs";
+import { EnhancedParticleEffects } from "../components/EnhancedParticleEffects";
+import { SurfaceTheme } from "../components/BackgroundTexture";
 
 export interface SquadScreenProps {
   squad: string[];
   teamName?: string;
   teamColor?: string;
+  surface?: SurfaceTheme;
 }
 
 export const SquadScreen: FunctionComponent<SquadScreenProps> = ({
   squad,
   teamName,
   teamColor,
+  surface,
 }) => {
   const frame = useCurrentFrame();
   const titleOpacity = spring({
@@ -29,21 +34,37 @@ export const SquadScreen: FunctionComponent<SquadScreenProps> = ({
 
   return (
     <AbsoluteFill className="overflow-hidden">
-      <BackgroundTexture />
+      <BackgroundTexture showCenterCircle={false} surface={surface} />
 
       {/* Animated gradient overlay */}
       <div
         className="absolute inset-0 opacity-75"
         style={{
           background: `linear-gradient(${225 + gradientOffset}deg, 
-                        ${teamColor ? `${teamColor}dd` : "rgba(30, 58, 138, 0.9)"} 0%, 
-                        rgba(0, 0, 0, 0.95) 40%, 
-                        rgba(0, 0, 0, 0.95) 60%, 
-                        ${teamColor ? `${teamColor}dd` : "rgba(251, 191, 36, 0.9)"} 100%)`,
+                        ${teamColor ? `${teamColor}cc` : "rgba(30, 112, 170, 0.8)"} 0%, 
+                        rgba(8, 24, 38, 0.82) 40%, 
+                        rgba(8, 24, 38, 0.82) 60%, 
+                        ${teamColor ? `${teamColor}cc` : "rgba(251, 191, 36, 0.82)"} 100%)`,
         }}
       />
 
       <BackgroundText />
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+        <AnimatedFootballs count={12} size={54} centered />
+      </div>
+      <EnhancedParticleEffects
+        count={60}
+        opacity={0.78}
+        colors={["#fbbf24", "#60a5fa", "#ffffff", "#34d399"]}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 4,
+          background: `radial-gradient(circle at ${50 + Math.sin(frame / 38) * 20}% ${45 + Math.cos(frame / 48) * 14}%, rgba(255,255,255,0.2), transparent 30%)`,
+          mixBlendMode: "screen",
+        }}
+      />
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full p-10">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-700 via-yellow-400 to-blue-700 opacity-70" />
