@@ -62,7 +62,7 @@ export const data: MainVideoData = {
       color: TeamColors.blue,
       matches: [
         {
-          time: "16:00",
+          time: "15:40",
           opponent: "Finlandia/Pallo AIF",
           showVs: true,
           color: "#005CB9",
@@ -74,7 +74,7 @@ export const data: MainVideoData = {
           color: "#000000",
         },
         {
-          time: "17:40",
+          time: "18:00",
           opponent: "IK Zenith",
           showVs: true,
           color: "#00904A",
@@ -86,7 +86,7 @@ export const data: MainVideoData = {
           color: "#000000",
         },
         {
-          time: "20:40",
+          time: "21:00",
           opponent: "Lindome GIF 2",
           showVs: true,
           color: "#000000",
@@ -99,7 +99,7 @@ export const data: MainVideoData = {
       color: TeamColors.yellow,
       matches: [
         {
-          time: "16:00",
+          time: "15:40",
           opponent: "Lindome GIF 2",
           showVs: true,
           color: "#000000",
@@ -111,19 +111,19 @@ export const data: MainVideoData = {
           color: "#00904A",
         },
         {
-          time: "17:20",
+          time: "18:00",
           opponent: "Finlandia/Pallo AIF",
           showVs: true,
           color: "#005CB9",
         },
         {
-          time: "18:40",
+          time: "19:00",
           opponent: "Lindome GIF 1",
           showVs: true,
           color: "#000000",
         },
         {
-          time: "21:00",
+          time: "20:40",
           opponent: "Lindome GIF 1",
           showVs: true,
           color: "#000000",
