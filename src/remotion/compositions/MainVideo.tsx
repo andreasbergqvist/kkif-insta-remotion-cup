@@ -18,7 +18,7 @@ export interface TeamData {
   name: string;
   color: string;
   matches: MatchData[];
-  squad: string[];
+  squad?: string[] | null;
 }
 
 export interface MainVideoData {
@@ -27,101 +27,106 @@ export interface MainVideoData {
   field: string;
   logoUrl: string;
   teams: TeamData[];
+  squad?: string[] | null;
   sponsors: string[];
 }
 
 // All changeable data for the video
 export const data: MainVideoData = {
-  eventName: "KKIF-dagen",
-  date: "Lördag",
-  field: "Klarebergsvallen",
+  eventName: "Göteborg Beachfestival",
+  date: "Fredag",
+  field: "Göteborg Beach Arena",
   logoUrl: "https://www.karrakif.se/im/hemsidaLogga/2056/60268/_genLogga.png",
+  squad: [
+    "Ariana Mati",
+    "Cornelia Björklund",
+    "Cornelia Dahlqvist",
+    "Emma Bohman",
+    "Emma Flygare",
+    "Ester Fahlström",
+    "Evelina Borne",
+    "Hanna Norrisson",
+    "Iris Bergqvist",
+    "Lilia Miqdad",
+    "Livia Reitz",
+    "Melina Mati",
+    "Tuva Reitz",
+    "Vanessa Diniute",
+  ],
   teams: [
     {
-      name: "Kärra 1",
+      name: "Kärra Blå",
       color: TeamColors.blue,
       matches: [
-        // Lördag
         {
-          time: "10.30",
-          opponent: "P17",
+          time: "16:00",
+          opponent: "Finlandia/Pallo AIF",
           showVs: true,
-          color: "#FFD200",
+          color: "#005CB9",
         },
         {
-          time: "11.00",
-          opponent: "Herrjunior Yngre",
+          time: "16:40",
+          opponent: "Lindome GIF 1",
           showVs: true,
-          color: "#005FA9",
+          color: "#000000",
         },
         {
-          time: "12.15",
-          opponent: "P19",
+          time: "17:40",
+          opponent: "IK Zenith",
           showVs: true,
-          color: "#FFD200",
+          color: "#00904A",
         },
-        // Söndag
         {
-          time: "12.45",
-          opponent: "P13",
+          time: "18:40",
+          opponent: "Lindome GIF 2",
           showVs: true,
-          color: "#005FA9",
+          color: "#000000",
+        },
+        {
+          time: "20:40",
+          opponent: "Lindome GIF 2",
+          showVs: true,
+          color: "#000000",
         },
       ],
-      squad: [
-        "Aleah Bublica",
-        "Alva Eriksson-Påls",
-        "Bao An Nguyen",
-        "Cornelia Björklund",
-        "Cornelia Dahlqvist",
-        "Disa Bäckman",
-        "Emma Bohman",
-        "Iris Bergqvist",
-        "Nadja Nisavic Deeb",
-        "Vanessa Diniute",
-      ],
+      squad: null,
     },
     {
-      name: "Kärra 2",
+      name: "Kärra Gul",
       color: TeamColors.yellow,
       matches: [
-        // Lördag
         {
-          time: "11.15",
-          opponent: "P14",
+          time: "16:00",
+          opponent: "Lindome GIF 2",
           showVs: true,
-          color: "#FFD200",
+          color: "#000000",
         },
         {
-          time: "12.00",
-          opponent: "P18",
+          time: "16:40",
+          opponent: "IK Zenith",
           showVs: true,
-          color: "#005FA9",
+          color: "#00904A",
         },
         {
-          time: "12.45",
-          opponent: "P16",
+          time: "17:20",
+          opponent: "Finlandia/Pallo AIF",
           showVs: true,
-          color: "#FFD200",
+          color: "#005CB9",
         },
         {
-          time: "13.15",
-          opponent: "P12",
+          time: "18:40",
+          opponent: "Lindome GIF 1",
           showVs: true,
-          color: "#005FA9",
+          color: "#000000",
+        },
+        {
+          time: "21:00",
+          opponent: "Lindome GIF 1",
+          showVs: true,
+          color: "#000000",
         },
       ],
-      squad: [
-        "Ariana Mati",
-        "Astrid Bergsten",
-        "Emma Flygare",
-        "Emma Yuan",
-        "Ester Fahlström",
-        "Hanna Norrisson",
-        "Leah Friis",
-        "Lilia Miqdad",
-        "Tuva Reitz",
-      ],
+      squad: null,
     },
   ],
   sponsors: ["Wattnord", "Itiden", "PG Bygg"],
@@ -130,13 +135,18 @@ export const data: MainVideoData = {
 export const SCREEN_DURATION = 120;
 export const SQUAD_SCREEN_DURATION = 180;
 
+const getTeamDuration = (team: TeamData) =>
+  SCREEN_DURATION * 1.5 + (team.squad != null ? SQUAD_SCREEN_DURATION : 0);
+
 // Calculate total duration based on whether sponsors exist
 export const calculateDuration = (videoData: MainVideoData) => {
-  const teamsDuration = videoData.teams.reduce((total) => {
-    return total + SCREEN_DURATION * 1.5 + SQUAD_SCREEN_DURATION;
-  }, 0);
+  const teamsDuration = videoData.teams.reduce(
+    (total, team) => total + getTeamDuration(team),
+    0,
+  );
 
-  const baseDuration = SCREEN_DURATION + teamsDuration;
+  const squadDuration = videoData.squad != null ? SQUAD_SCREEN_DURATION : 0;
+  const baseDuration = SCREEN_DURATION + teamsDuration + squadDuration;
   return videoData.sponsors && videoData.sponsors.length > 0
     ? baseDuration + SCREEN_DURATION
     : baseDuration;
@@ -146,11 +156,14 @@ export const MainVideo: FunctionComponent = () => {
   const introStart = 0;
   const teamSequenceStart = introStart + SCREEN_DURATION;
 
-  const teamsTotalDuration = data.teams.reduce((total) => {
-    return total + SCREEN_DURATION * 1.5 + SQUAD_SCREEN_DURATION;
-  }, 0);
+  const teamsTotalDuration = data.teams.reduce(
+    (total, team) => total + getTeamDuration(team),
+    0,
+  );
 
-  const sponsorsStart = teamSequenceStart + teamsTotalDuration;
+  const squadStart = teamSequenceStart + teamsTotalDuration;
+  const sponsorsStart =
+    squadStart + (data.squad != null ? SQUAD_SCREEN_DURATION : 0);
 
   return (
     <AbsoluteFill className="bg-black">
@@ -168,34 +181,49 @@ export const MainVideo: FunctionComponent = () => {
       {data.teams.map((team, index) => {
         const teamStart =
           teamSequenceStart +
-          index * (SCREEN_DURATION * 1.5 + SQUAD_SCREEN_DURATION);
+          data.teams
+            .slice(0, index)
+            .reduce(
+              (total, previousTeam) => total + getTeamDuration(previousTeam),
+              0,
+            );
+        const teamDuration = getTeamDuration(team);
 
         return (
           <Sequence
             key={team.name}
-            durationInFrames={SCREEN_DURATION * 1.5 + SQUAD_SCREEN_DURATION}
+            durationInFrames={teamDuration}
             from={teamStart}
           >
             {/* 2. Matches screen (per team) */}
             <Sequence durationInFrames={SCREEN_DURATION * 1.5}>
               <MatchesScreen matches={team.matches} teamName={team.name} />
             </Sequence>
-            {/* 3. Squad screen (per team) */}
-            <Sequence
-              durationInFrames={SQUAD_SCREEN_DURATION}
-              from={SCREEN_DURATION * 1.5}
-            >
-              <SquadScreen
-                squad={team.squad}
-                teamName={team.name}
-                teamColor={team.color}
-              />
-            </Sequence>
+            {/* 3. Squad screen (per team, optional) */}
+            {team.squad != null && (
+              <Sequence
+                durationInFrames={SQUAD_SCREEN_DURATION}
+                from={SCREEN_DURATION * 1.5}
+              >
+                <SquadScreen
+                  squad={team.squad}
+                  teamName={team.name}
+                  teamColor={team.color}
+                />
+              </Sequence>
+            )}
           </Sequence>
         );
       })}
 
-      {/* 4. Sponsors screen (optional) */}
+      {/* 4. Squad screen (whole cup, optional) */}
+      {data.squad != null && (
+        <Sequence durationInFrames={SQUAD_SCREEN_DURATION} from={squadStart}>
+          <SquadScreen squad={data.squad} />
+        </Sequence>
+      )}
+
+      {/* 5. Sponsors screen (optional) */}
       {data.sponsors && data.sponsors.length > 0 && (
         <Sequence durationInFrames={SCREEN_DURATION} from={sponsorsStart}>
           <SponsorsScreen sponsors={data.sponsors} />

@@ -99,7 +99,7 @@ export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
                   {m.time}
                 </div>
                 <div
-                  className="text-left flex-5"
+                  className="text-left flex-7"
                   style={{
                     opacity: vsOpacity,
                     transform: `scale(${opponentScale}) translateX(${opponentX}px)`,
