@@ -47,7 +47,10 @@ export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
       />
 
       <BackgroundText />
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ zIndex: 3 }}
+      >
         <AnimatedFootballs count={10} size={58} />
       </div>
       <EnhancedParticleEffects count={55} opacity={0.75} />

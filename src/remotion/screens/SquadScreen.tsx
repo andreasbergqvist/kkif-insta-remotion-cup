@@ -49,7 +49,10 @@ export const SquadScreen: FunctionComponent<SquadScreenProps> = ({
       />
 
       <BackgroundText />
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ zIndex: 3 }}
+      >
         <AnimatedFootballs count={12} size={54} centered />
       </div>
       <EnhancedParticleEffects

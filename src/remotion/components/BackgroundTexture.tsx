@@ -1,5 +1,5 @@
-import React from 'react';
-import { AbsoluteFill, useCurrentFrame } from 'remotion';
+import React from "react";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
 
 export type SurfaceTheme = "sand" | "grass";
 
@@ -65,7 +65,7 @@ export const BackgroundTexture: React.FC<BackgroundTextureProps> = ({
               transparent 6px
             )
           `,
-          backgroundSize: '8px 8px, 12px 12px',
+          backgroundSize: "8px 8px, 12px 12px",
           transform: `translate(${xOffset}px, ${yOffset}px)`,
         }}
       />
@@ -90,7 +90,7 @@ export const BackgroundTexture: React.FC<BackgroundTextureProps> = ({
               transparent 51px
             )
           `,
-          backgroundSize: '100px 100px',
+          backgroundSize: "100px 100px",
           transform: `translate(${xOffset * 1.2}px, ${yOffset * 1.2}px) rotate(${15 + rotation}deg)`,
         }}
       />
@@ -100,16 +100,17 @@ export const BackgroundTexture: React.FC<BackgroundTextureProps> = ({
         <div
           className="absolute rounded-full border-[6px] border-cyan-100/20"
           style={{
-            width: '600px',
-            height: '600px',
-            top: '50%',
-            left: '50%',
+            width: "600px",
+            height: "600px",
+            top: "50%",
+            left: "50%",
             transform: `
               translate(-50%, -50%) 
               scale(${1 + Math.sin(frame / 150) * 0.08}) 
               rotate(${rotation * 2}deg)
             `,
-            boxShadow: '0 0 100px rgba(180,230,255,0.2) inset, 0 0 70px rgba(251, 191, 36, 0.18)',
+            boxShadow:
+              "0 0 100px rgba(180,230,255,0.2) inset, 0 0 70px rgba(251, 191, 36, 0.18)",
           }}
         />
       )}
@@ -118,18 +119,20 @@ export const BackgroundTexture: React.FC<BackgroundTextureProps> = ({
       <div
         className="absolute w-32 h-32 rounded-full opacity-5"
         style={{
-          background: 'radial-gradient(circle, rgba(251, 191, 36, 0.5) 0%, transparent 70%)',
-          top: '20%',
-          left: '10%',
+          background:
+            "radial-gradient(circle, rgba(251, 191, 36, 0.5) 0%, transparent 70%)",
+          top: "20%",
+          left: "10%",
           transform: `translate(${Math.sin(frame / 100) * 50}px, ${Math.cos(frame / 120) * 30}px)`,
         }}
       />
       <div
         className="absolute w-24 h-24 rounded-full opacity-5"
         style={{
-          background: 'radial-gradient(circle, rgba(30, 58, 138, 0.5) 0%, transparent 70%)',
-          top: '70%',
-          right: '15%',
+          background:
+            "radial-gradient(circle, rgba(30, 58, 138, 0.5) 0%, transparent 70%)",
+          top: "70%",
+          right: "15%",
           transform: `translate(${Math.cos(frame / 140) * 40}px, ${Math.sin(frame / 90) * 25}px)`,
         }}
       />

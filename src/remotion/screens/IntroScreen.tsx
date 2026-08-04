@@ -108,7 +108,8 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
           inset: 0,
           opacity: 0.88,
           background: `radial-gradient(ellipse at ${50 + Math.sin(frame / 70) * 18}% ${38 + Math.cos(frame / 80) * 12}%, ${pitchColors.glow}, transparent 42%), linear-gradient(${110 + frame / 12}deg, ${pitchColors.deep}, ${pitchColors.mid} 46%, rgba(3, 20, 24, 0.96))`,
-          boxShadow: "inset 0 0 170px rgba(1, 20, 16, 0.72), 0 0 80px rgba(71, 178, 95, 0.18)",
+          boxShadow:
+            "inset 0 0 170px rgba(1, 20, 16, 0.72), 0 0 80px rgba(71, 178, 95, 0.18)",
         }}
       >
         <div
