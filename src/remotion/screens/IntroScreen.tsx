@@ -1,10 +1,5 @@
 import { FunctionComponent } from "react";
-import {
-  AbsoluteFill,
-  Img,
-  useCurrentFrame,
-  spring,
-} from "remotion";
+import { AbsoluteFill, Img, useCurrentFrame, spring } from "remotion";
 import { AnimatedFootballs } from "../components/AnimatedFootballs";
 import { BackgroundTexture } from "../components/BackgroundTexture";
 import { EnhancedParticleEffects } from "../components/EnhancedParticleEffects";
