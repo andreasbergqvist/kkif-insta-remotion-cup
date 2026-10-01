@@ -4,7 +4,6 @@ import {
   Img,
   useCurrentFrame,
   spring,
-  interpolate,
 } from "remotion";
 import { AnimatedFootballs } from "../components/AnimatedFootballs";
 import { BackgroundTexture } from "../components/BackgroundTexture";
@@ -15,7 +14,6 @@ export interface IntroScreenProps {
   eventName: string;
   date: string;
   logoUrl?: string;
-  field?: string;
   surface?: SurfaceTheme;
 }
 
@@ -23,7 +21,6 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
   eventName,
   date,
   logoUrl,
-  field,
   surface,
 }) => {
   const frame = useCurrentFrame();
@@ -49,7 +46,6 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
     fps: 30,
     durationInFrames: 15,
   });
-  const preTextY = interpolate(preTextOpacity, [0, 1], [30, 0]);
   const mainTextOpacity = spring({
     frame: frame - 14,
     from: 0,
@@ -57,11 +53,6 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
     fps: 30,
     durationInFrames: 18,
   });
-  const mainTextScale =
-    1 +
-    0.15 * Math.sin(Math.min(Math.max((frame - 14) / 18, 0), 1) * Math.PI) +
-    Math.sin(frame / 120) * 0.05;
-  const mainTextY = interpolate(mainTextOpacity, [0, 1], [40, 0]);
   const dateOpacity = spring({
     frame: frame - 24,
     from: 0,
@@ -69,16 +60,6 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
     fps: 30,
     durationInFrames: 15,
   });
-  const dateY = interpolate(dateOpacity, [0, 1], [30, 0]);
-  const fieldOpacity = spring({
-    frame: frame - 32,
-    from: 0,
-    to: 1,
-    fps: 30,
-    durationInFrames: 15,
-  });
-  const fieldY = interpolate(fieldOpacity, [0, 1], [30, 0]);
-
   // Enhanced gradient animation
   const gradientOffset = frame / 3;
   const pitchColors =
@@ -136,6 +117,15 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
         }}
       />
 
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 3,
+          background: `radial-gradient(ellipse at ${50 + Math.sin(frame / 90) * 8}% 34%, rgba(230, 255, 228, 0.3), transparent 48%), linear-gradient(72deg, transparent 22%, rgba(215, 255, 226, 0.08) 42%, transparent 56%), linear-gradient(108deg, transparent 44%, rgba(255, 246, 194, 0.1) 59%, transparent 76%)`,
+          mixBlendMode: "screen",
+        }}
+      />
+
       {/* Soccer balls positioned discretely in background */}
       <div className="absolute inset-0" style={{ zIndex: 2 }}>
         <AnimatedFootballs count={8} size={64} centered />
@@ -148,66 +138,51 @@ export const IntroScreen: FunctionComponent<IntroScreenProps> = ({
       />
 
       <div className="relative z-20 flex flex-col items-center justify-center h-full">
-        <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-blue-700 via-yellow-400 to-blue-700 opacity-80" />
-        <div className="mb-12 mt-8">
-          <Img
-            src={
-              logoUrl ||
-              "https://www.karrakif.se/im/hemsidaLogga/2056/60268/_genLogga.png"
-            }
-            alt="Logo"
-            className="object-contain h-48 w-96 drop-shadow-xl"
-            style={{
-              opacity: logoOpacity,
-              transform: `scale(${logoScale}) rotate(${logoRotation}deg)`,
-              filter: `drop-shadow(0 0 20px rgba(251, 191, 36, ${logoOpacity * 0.5}))`,
-            }}
-          />
-        </div>
+        <div className="absolute top-0 left-0 w-full h-6 bg-gradient-to-r from-blue-700 via-yellow-300 to-blue-700 opacity-90 shadow-[0_0_28px_rgba(251,191,36,0.45)]" />
+        {logoUrl && (
+          <div className="mb-5 mt-10">
+            <Img
+              src={logoUrl}
+              alt="Kärra KIF"
+              className="object-contain h-72 w-[36rem] drop-shadow-xl"
+              style={{
+                opacity: logoOpacity,
+                transform: `scale(${logoScale}) rotate(${logoRotation}deg)`,
+                filter: `drop-shadow(0 0 36px rgba(251, 191, 36, ${logoOpacity * 0.75}))`,
+              }}
+            />
+          </div>
+        )}
         <div
-          className="mb-6 text-white font-teko font-bold text-5xl tracking-wider text-center drop-shadow-lg"
+          className="mb-3 text-white font-teko font-bold text-7xl text-center drop-shadow-lg"
           style={{
             opacity: preTextOpacity,
-            transform: `translateY(${preTextY}px)`,
-            textShadow: "0 2px 8px rgba(0,0,0,0.8)",
+            textShadow:
+              "0 0 24px rgba(251,191,36,0.5), 0 3px 10px rgba(0,0,0,0.9)",
           }}
         >
           Dags för
         </div>
         <div
-          className="mb-12 text-white font-teko font-extrabold text-9xl tracking-wider text-center drop-shadow-lg"
+          className="max-w-[960px] mb-4 text-white font-teko font-extrabold text-[10rem] leading-[0.82] text-center drop-shadow-lg"
           style={{
             opacity: mainTextOpacity,
-            transform: `translateY(${mainTextY}px) scale(${mainTextScale})`,
             textShadow:
-              "0 0 15px rgba(251, 191, 36, 0.4), 0 4px 12px rgba(0,0,0,0.9)",
+              "0 0 30px rgba(251, 191, 36, 0.55), 0 8px 18px rgba(0,0,0,0.95)",
           }}
         >
           {eventName}
         </div>
         <div
-          className="text-white font-teko text-6xl mt-4 mb-4 tracking-wider text-center drop-shadow-lg"
+          className="text-white font-teko font-semibold text-7xl mt-5 mb-1 text-center drop-shadow-lg"
           style={{
             opacity: dateOpacity,
-            transform: `translateY(${dateY}px)`,
-            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+            textShadow: "0 3px 10px rgba(0,0,0,0.85)",
           }}
         >
           {date}
         </div>
-        {field && (
-          <div
-            className="text-white font-teko text-6xl mt-2 tracking-wider text-center drop-shadow-lg"
-            style={{
-              opacity: fieldOpacity,
-              transform: `translateY(${fieldY}px)`,
-              textShadow: "0 2px 8px rgba(0,0,0,0.7)",
-            }}
-          >
-            {field}
-          </div>
-        )}
-        <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-yellow-400 via-blue-700 to-yellow-400 opacity-80" />
+        <div className="absolute bottom-0 left-0 w-full h-6 bg-gradient-to-r from-yellow-300 via-blue-700 to-yellow-300 opacity-90 shadow-[0_0_28px_rgba(251,191,36,0.45)]" />
       </div>
     </AbsoluteFill>
   );

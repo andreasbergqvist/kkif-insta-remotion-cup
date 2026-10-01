@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { AbsoluteFill, Sequence } from "remotion";
+import { AbsoluteFill, Sequence, staticFile } from "remotion";
 import { SponsorsScreen } from "../screens/SponsorsScreen";
 import { BackgroundTexture } from "../components/BackgroundTexture";
 import { IntroScreen } from "../screens/IntroScreen";
@@ -13,6 +13,7 @@ export interface MatchData {
   opponent: string;
   showVs: boolean;
   color: string;
+  location: string;
 }
 
 export interface TeamData {
@@ -25,7 +26,6 @@ export interface TeamData {
 export interface MainVideoData {
   eventName: string;
   date: string;
-  field: string;
   logoUrl: string;
   surface: SurfaceTheme;
   teams: TeamData[];
@@ -35,101 +35,99 @@ export interface MainVideoData {
 
 // All changeable data for the video
 export const data: MainVideoData = {
-  eventName: "Göteborg Beachfestival",
-  date: "Fredag",
-  field: "Göteborg Beach Arena",
-  logoUrl: "https://www.karrakif.se/im/hemsidaLogga/2056/60268/_genLogga.png",
-  surface: "sand",
-  squad: [
-    "Ariana Mati",
-    "Cornelia Björklund",
-    "Cornelia Dahlqvist",
-    "Emma Bohman",
-    "Emma Flygare",
-    "Ester Fahlström",
-    "Evelina Borne",
-    "Hanna Norrisson",
-    "Iris Bergqvist",
-    "Lilia Miqdad",
-    "Livia Reitz",
-    "Melina Mati",
-    "Tuva Reitz",
-    "Vanessa Diniute",
-  ],
+  eventName: "Borås Arena Cup",
+  date: "Lördag",
+  logoUrl: staticFile("karra-kif-logo.webp"),
+  surface: "grass",
   teams: [
-    {
-      name: "Kärra Blå",
-      color: TeamColors.blue,
-      matches: [
-        {
-          time: "15:40",
-          opponent: "Finlandia/Pallo AIF",
-          showVs: true,
-          color: "#005CB9",
-        },
-        {
-          time: "16:40",
-          opponent: "Lindome GIF 1",
-          showVs: true,
-          color: "#000000",
-        },
-        {
-          time: "18:00",
-          opponent: "IK Zenith",
-          showVs: true,
-          color: "#00904A",
-        },
-        {
-          time: "18:40",
-          opponent: "Lindome GIF 2",
-          showVs: true,
-          color: "#000000",
-        },
-        {
-          time: "21:00",
-          opponent: "Lindome GIF 2",
-          showVs: true,
-          color: "#000000",
-        },
-      ],
-      squad: null,
-    },
     {
       name: "Kärra Gul",
       color: TeamColors.yellow,
       matches: [
         {
-          time: "15:40",
-          opponent: "Lindome GIF 2",
-          showVs: true,
-          color: "#000000",
-        },
-        {
-          time: "16:40",
-          opponent: "IK Zenith",
-          showVs: true,
-          color: "#00904A",
-        },
-        {
-          time: "18:00",
-          opponent: "Finlandia/Pallo AIF",
+          time: "09:40",
+          opponent: "Hestrafors",
           showVs: true,
           color: "#005CB9",
+          location: "Borås Arena 2C",
         },
         {
-          time: "19:00",
-          opponent: "Lindome GIF 1",
+          time: "11:40",
+          opponent: "Falköping",
           showVs: true,
-          color: "#000000",
+          color: "#00904A",
+          location: "Ryavallen C",
         },
         {
-          time: "20:40",
-          opponent: "Lindome GIF 1",
+          time: "12:20",
+          opponent: "Vara",
           showVs: true,
+          color: "#005CB9",
+          location: "Ryavallen C",
+        },
+        {
+          time: "14:00-",
+          opponent: "Omspelningsmatcher",
+          showVs: false,
           color: "#000000",
+          location: "Borås Arena / Ryavallen / Ryda Fotbollshall",
         },
       ],
-      squad: null,
+      squad: [
+        "Alva Eriksson-Påls",
+        "Cornelia Björklund",
+        "Emma Bohman",
+        "Emma Yman",
+        "Ester Fahlström",
+        "Evelina Borne",
+        "Nova Gonzales",
+        "Tuva Reitz",
+      ],
+    },
+    {
+      name: "Kärra Blå",
+      color: TeamColors.blue,
+      matches: [
+        {
+          time: "10:20",
+          opponent: "Råda",
+          showVs: true,
+          color: "#00904A",
+          location: "Borås Arena A",
+        },
+        {
+          time: "12:00",
+          opponent: "Ulricehamn",
+          showVs: true,
+          color: "#005CB9",
+          location: "Ryavallen C",
+        },
+        {
+          time: "12:40",
+          opponent: "Frändefors",
+          showVs: true,
+          color: "#000000",
+          location: "Ryavallen C",
+        },
+        {
+          time: "14:00-",
+          opponent: "Omspelningsmatcher",
+          showVs: false,
+          color: "#000000",
+          location: "Borås Arena / Ryavallen / Ryda Fotbollshall",
+        },
+      ],
+      squad: [
+        "Ajla Duzel",
+        "Cornelia Dahlqvist",
+        "Disa Bäckman",
+        "Hanna Norrisson",
+        "Iris Bergqvist",
+        "Leah Friis",
+        "Lilia Miqdad",
+        "Minahil Mohsan Imtiaz",
+        "Vanessa Diniute",
+      ],
     },
   ],
   sponsors: ["Wattnord", "Itiden", "PG Bygg"],
@@ -177,7 +175,6 @@ export const MainVideo: FunctionComponent = () => {
           eventName={data.eventName}
           date={data.date}
           logoUrl={data.logoUrl}
-          field={data.field}
           surface={data.surface}
         />
       </Sequence>

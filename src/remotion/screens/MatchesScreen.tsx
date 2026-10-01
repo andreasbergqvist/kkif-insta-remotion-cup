@@ -7,7 +7,13 @@ import { EnhancedParticleEffects } from "../components/EnhancedParticleEffects";
 import { SurfaceTheme } from "../components/BackgroundTexture";
 
 export interface MatchesScreenProps {
-  matches: { time: string; opponent: string; showVs: boolean; color: string }[];
+  matches: {
+    time: string;
+    opponent: string;
+    showVs: boolean;
+    color: string;
+    location: string;
+  }[];
   teamName?: string;
   surface?: SurfaceTheme;
 }
@@ -128,6 +134,7 @@ export const MatchesScreen: FunctionComponent<MatchesScreenProps> = ({
                   }}
                 >
                   {m.showVs && "vs"} {m.opponent}
+                  <div className="text-4xl leading-tight">{m.location}</div>
                 </div>
               </div>
             );
