@@ -77,7 +77,7 @@ export const data: MainVideoData = {
         "Alva Eriksson-Påls",
         "Cornelia Björklund",
         "Emma Bohman",
-        "Emma Yman",
+        "Emma Yuan",
         "Ester Fahlström",
         "Evelina Borne",
         "Nova Gonzales",
